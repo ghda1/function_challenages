@@ -1,5 +1,6 @@
 using System;
 using System.Runtime.CompilerServices;
+using System.Text.RegularExpressions;
 
 namespace FunctionChallenges
 {
@@ -50,6 +51,24 @@ namespace FunctionChallenges
 
         }
 
+        public static void ProfileUpdater (ref string? name, ref int? age, ref string? email){
+            System.Console.Write("Enter your new name: ");
+            name = Console.ReadLine();
+            System.Console.WriteLine($"Name updated to: {name}");
+            System.Console.Write("Enter your new age: ");
+            age = Convert.ToInt32(Console.ReadLine());
+            System.Console.WriteLine($"Age updated to: {age}");
+            System.Console.Write("Enter your new email: ");
+            email = Console.ReadLine();
+            System.Console.WriteLine($"Email updated to: {email}");
+            System.Console.WriteLine();
+            System.Console.WriteLine(); 
+            System.Console.WriteLine("Updated profile:");
+            Console.WriteLine($"Name: { name} ");
+            Console.WriteLine($"Age: { age} ");
+            Console.WriteLine($"Email: { email} ");
+        }
+
         static void Main(string[] args)
         {
             // Challenge 1
@@ -82,7 +101,7 @@ namespace FunctionChallenges
              try{
                 int? userInput = Convert.ToInt32(Console.ReadLine());
                     
-                // handling null or empty input
+            // handling null or empty input
             if (userInput is null || userInput.ToString() == ""){
 
                 Console.WriteLine("Please make sure you have enter some text!");
@@ -96,16 +115,16 @@ namespace FunctionChallenges
             else{
                 GuessingGame(userInput);
             }
-         }
+         } // handling double\float\string inputs
          catch (FormatException e){
             System.Console.WriteLine($" {e.Message}: please make sur you have enret an integer value!");
 
          }
   
-    }*/
+    }
                 
             // Challenge 3
-            /*
+            
             while(true){
             Console.WriteLine("Enter your inputs to reverse it, or type (Quit) to exit: ");
             string? userInput = Console.ReadLine();
@@ -123,8 +142,66 @@ namespace FunctionChallenges
                 ReverseWords(userInput);
             }
 
-            }
+         }
             */
+             // Challenge 4
+
+              System.Console.WriteLine("Enter Your Name, Age, and Email. (note: you can update later)");  
+              System.Console.Write("Name: ");
+              string? name = Console.ReadLine();
+              // handling null or empty input
+              if (name is null || name == ""){
+                System.Console.WriteLine("Please make sure that you enter your name: ");
+                name = Console.ReadLine();
+              }
+
+              System.Console.Write("Age: ");
+              int? age = Convert.ToInt32(Console.ReadLine());
+              // handling null or empty input
+              if (age is null || age.ToString() == ""){
+                System.Console.WriteLine("Please make sure that you enter your age: ");
+                age = Convert.ToInt32(Console.ReadLine());
+              } // handling negative input
+              else if(age < 0){
+                System.Console.WriteLine("your age shouldn't be negative. Please enter your age: ");
+                age = Convert.ToInt32(Console.ReadLine());
+              }
+
+              System.Console.Write("Email: ");
+              string? email = Console.ReadLine();
+              // handling null or empty input
+              if (email is null || email == ""){
+                System.Console.WriteLine("Please make sure that you enter your email: ");
+                email = Console.ReadLine();
+              }
+              // handling unvalid email
+              bool isEmail = Regex.IsMatch(email, @"\A(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?)\Z",
+               RegexOptions.IgnoreCase);
+              if (isEmail == false){
+                System.Console.WriteLine("Please enter a valid email: ");
+                email = Console.ReadLine();
+              }
+            System.Console.WriteLine();
+            System.Console.WriteLine();
+            System.Console.WriteLine("Initial profile:");
+            Console.WriteLine($"Name: { name} ");
+            Console.WriteLine($"Age: { age} ");
+            Console.WriteLine($"Email: { email} ");
+            System.Console.WriteLine();
+            System.Console.WriteLine();
+
+            System.Console.WriteLine("Do you want to update your profile? (type: y/n)");
+            string? updateSighn = Console.ReadLine();
+            // handling null or empty input
+            if (updateSighn is null || updateSighn == ""){
+                System.Console.WriteLine("Please enter y/n!");
+                updateSighn = Console.ReadLine();
+              }else if(updateSighn.Trim().ToLower() == "n"){
+                System.Console.WriteLine("Thanks!");
+
+              }else if (updateSighn.Trim().ToLower() == "y"){
+                ProfileUpdater(ref name, ref age, ref email);
+              }
         }
     }
 }
