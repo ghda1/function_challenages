@@ -177,7 +177,7 @@ namespace FunctionChallenges
               // handling unvalid email
               bool isEmail = Regex.IsMatch(email, @"\A(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?)\Z",
                RegexOptions.IgnoreCase);
-              if (isEmail == false){
+              if (!isEmail){
                 System.Console.WriteLine("Please enter a valid email: ");
                 email = Console.ReadLine();
               }
